@@ -1,8 +1,6 @@
 # Workshop 2: Automatización de un pipeline ETL con Apache Airflow
 
-Curso ETL (G01), Universidad Autónoma de Occidente.
-
-Pipeline que une dos fuentes: el dataset de **Spotify** (CSV) y el de **Grammys** (base de datos SQLite). Valida, transforma, une, carga el resultado en una base de datos, lo exporta como CSV y genera un reporte con gráficos leídos desde la base.
+Este proyecto automatiza un pipeline ETL con Apache Airflow para integrar datos de canciones de Spotify (desde un archivo CSV) con información de los Premios Grammy (desde una base de datos). El flujo valida la calidad de los datos con Pandera, limpia y realiza el cruce (merge) de ambas fuentes, y guarda el resultado tanto en una base de datos analítica como en un archivo CSV. Finalmente, genera un reporte gráfico consultando directamente la base de datos resultante.
 
 ## Tecnologías
 

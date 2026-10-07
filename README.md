@@ -19,6 +19,7 @@ Python, Apache Airflow 2.10.5 (Docker, `LocalExecutor` + Postgres para los metad
 ├── docs/                        # Gráficos y evidencia (logs, grafo del DAG)
 ├── db_grammys_initial.py        # Crea la base inicial de Grammys
 ├── dashboard.py                 # Reporte: gráficos desde la base final
+├── reporte.ipynb                # Notebook con el reporte (gráficos desde la base)
 ├── docker-compose.yml           # Airflow en Docker
 └── README.md
 ```

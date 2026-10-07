@@ -26,7 +26,7 @@ def transform_db():
     resumen = (
         df.groupby("artist_key")
         .agg(
-            nominaciones=("winner", "size"),
+            
             premios=("winner", "sum"),
             primer_anio=("year", "min"),
             ultimo_anio=("year", "max"),
@@ -72,15 +72,36 @@ def transform_csv():
 
 
 def merge():
-    print("merge: unir Spotify y Grammys")
+    spotify = pd.read_csv(f"{DATA_DIR}/tmp_spotify_transformed.csv")
+    grammys = pd.read_csv(f"{DATA_DIR}/tmp_grammys_transformed.csv")
+
+    df = spotify.merge(grammys, on="artist_key", how="left")
+    df["premios"] = df["premios"].fillna(0).astype(int)
+    df["tiene_grammy"] = df["premios"] > 0
+
+    df.to_csv(f"{DATA_DIR}/tmp_merged.csv", index=False)
+    con_grammy = df.loc[df["tiene_grammy"], "artist_key"].nunique()
+    print(f"merge: {len(df)} filas, {con_grammy} artistas con Grammy")
 
 
 def load():
-    print("load: cargar a la base final")
+    import sqlite3
+
+    df = pd.read_csv(f"{DATA_DIR}/tmp_merged.csv")
+    conn = sqlite3.connect(f"{DATA_DIR}/final_analytics.db")
+    df.to_sql("spotify_grammys", conn, if_exists="replace", index=False)
+    conn.close()
+    print(f"load: {len(df)} filas cargadas en la tabla spotify_grammys")
 
 
 def store():
-    print("store: guardar el CSV final")
+    import sqlite3
+
+    conn = sqlite3.connect(f"{DATA_DIR}/final_analytics.db")
+    df = pd.read_sql("SELECT * FROM spotify_grammys", conn)
+    conn.close()
+    df.to_csv(f"{DATA_DIR}/spotify_grammys_final.csv", index=False)
+    print(f"store: {len(df)} filas guardadas en spotify_grammys_final.csv")
 
 
 with DAG(

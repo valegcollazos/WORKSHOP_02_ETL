@@ -107,6 +107,8 @@ Descarta 1 fila inválida, elimina 24.259 duplicados por `track_id` y separa los
 
 `dashboard.py` consulta con SQL la base `final_analytics.db` (no el CSV) y genera 4 gráficos en `docs/`. De las 123.424 filas, 6.991 (~6%) son de artistas con Grammy, por lo que los dos grupos tienen tamaños muy distintos.
 
+Los mismos gráficos, con su interpretación, están en el notebook `reporte.ipynb`.
+
 ### 1. Popularidad promedio: CON vs SIN Grammy
 ![Gráfico 1](docs/grafico_1_popularidad.png)
 

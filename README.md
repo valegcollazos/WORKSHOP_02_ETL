@@ -15,13 +15,15 @@ Python, Apache Airflow 2.10.5 (Docker, `LocalExecutor` + Postgres para los metad
 ├── data/
 │   ├── spotify.csv              # Fuente 1 (CSV)
 │   ├── grammys.csv              # Datos para crear la base inicial
-│   └── spotify_grammys_final.csv  # Resultado del pipeline
+│   └── spotify_grammys_final.csv # Resultado del pipeline
 ├── docs/                        # Gráficos y evidencia (logs, grafo del DAG)
-├── db_grammys_initial.py        # Crea la base inicial de Grammys
-├── dashboard.py                 # Reporte: gráficos desde la base final
-├── reporte.ipynb                # Notebook con el reporte (gráficos desde la base)
+├── scripts/                     # Scripts auxiliares de ejecución
+│   ├── db_grammys_initial.py    # Crea la base inicial de Grammys
+│   └── dashboard.py             # Reporte: gráficos desde la base final
 ├── docker-compose.yml           # Airflow en Docker
-└── README.md
+├── README.md                    # Documentación del proyecto
+├── reporte.ipynb                # Notebook con el reporte
+└── requirements.txt             # Dependencias del proyecto
 ```
 
 ## Flujo del pipeline
@@ -149,7 +151,7 @@ Requisitos: Python 3.10+, Docker Desktop y Git.
 ```
 4. Crear la base inicial de Grammys (genera `data/grammys_initial.db`):
 ```
-   python db_grammys_initial.py
+   python scripts/db_grammys_initial.py
 ```
 5. Inicializar y levantar Airflow:
 ```
@@ -159,7 +161,7 @@ Requisitos: Python 3.10+, Docker Desktop y Git.
 6. Abrir http://localhost:8080 (usuario `admin`, contraseña `admin`), activar el DAG `spotify_grammys_etl` y ejecutarlo con **Trigger DAG**.
 7. Generar el reporte (lee `data/final_analytics.db`):
 ```
-   python dashboard.py
+   python scripts/dashboard.py
 ```
 8. Para apagar Airflow: `docker compose down`.
 

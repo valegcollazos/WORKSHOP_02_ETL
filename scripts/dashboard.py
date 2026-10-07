@@ -1,11 +1,12 @@
 import sqlite3
-
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-DB_PATH = "data/final_analytics.db"
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR / "data" / "final_analytics.db"
+DOCS_DIR = BASE_DIR / "docs"
 
 def consultar(sql):
     conn = sqlite3.connect(DB_PATH)
@@ -32,7 +33,7 @@ def grafico_popularidad():
     plt.title("Popularidad promedio en Spotify")
     plt.ylabel("Popularidad (0-100)")
     plt.tight_layout()
-    plt.savefig("docs/grafico_1_popularidad.png")
+    plt.savefig(DOCS_DIR / "grafico_1_popularidad.png")
     plt.show()
 
 
@@ -59,7 +60,7 @@ def grafico_perfil_sonoro():
     ax.set_title("Perfil sonoro promedio")
     ax.legend(loc="upper right", bbox_to_anchor=(1.3, 1.1))
     plt.tight_layout()
-    plt.savefig("docs/grafico_2_perfil_sonoro.png")
+    plt.savefig(DOCS_DIR / "grafico_2_perfil_sonoro.png")
     plt.show()
 
 
@@ -84,7 +85,7 @@ def grafico_top_premios():
     plt.title("Top 10 artistas por premios Grammy (con canciones en Spotify)")
     plt.xlabel("Premios ganados")
     plt.tight_layout()
-    plt.savefig("docs/grafico_3_top_premios.png")
+    plt.savefig(DOCS_DIR / "grafico_3_top_premios.png")
     plt.show()
 
 
@@ -108,7 +109,7 @@ def grafico_premios_vs_popularidad():
     plt.xlabel("Premios ganados")
     plt.ylabel("Popularidad promedio (0-100)")
     plt.tight_layout()
-    plt.savefig("docs/grafico_4_premios_popularidad.png")
+    plt.savefig(DOCS_DIR / "grafico_4_premios_popularidad.png")
     plt.show()
 
 
